@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniStructorMVCApp", "MiniStructorMVCApp\MiniStructorMVCApp.csproj", "{E87CC5C0-F285-4D13-81A3-B714D79E8CC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniStructorDB", "MiniStructorDB\MiniStructorDB.csproj", "{97E21EFB-6E26-4CF7-86A3-23EE39B198B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniStructorDB", "MiniStructorDB\MiniStructorDB.csproj", "{97E21EFB-6E26-4CF7-86A3-23EE39B198B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniStructorRepository", "MiniStructorRepository\MiniStructorRepository.csproj", "{2F8D1523-04CF-40AE-9FA2-3F4BD98E2F50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniStructorRepository", "MiniStructorRepository\MiniStructorRepository.csproj", "{2F8D1523-04CF-40AE-9FA2-3F4BD98E2F50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniStructorBusiness", "MiniStructorBusiness\MiniStructorBusiness.csproj", "{3C9C432E-E531-4632-8315-891977F06DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniStructorBusiness", "MiniStructorBusiness\MiniStructorBusiness.csproj", "{3C9C432E-E531-4632-8315-891977F06DAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MiniStructorDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,9 @@ namespace MiniStructorRepository
     public class Repository<T> : IRepository<T> where T : class
     {
         protected DbSet<T> DbSet;
+        DbContext dataContext = new minicstructorContext();
 
-        public Repository(DbContext dataContext)
+        public Repository()
         {
             DbSet = dataContext.Set<T>();
         }
@@ -19,16 +21,19 @@ namespace MiniStructorRepository
         public void Insert(T entity)
         {
             DbSet.Add(entity);
+            dataContext.SaveChanges();
         }
 
         public void Update(T entity)
         {
             DbSet.Update(entity);
+            dataContext.SaveChanges();
         }
 
         public void Delete(T entity)
         {
             DbSet.Remove(entity);
+            dataContext.SaveChanges();
         }
 
         public IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate)

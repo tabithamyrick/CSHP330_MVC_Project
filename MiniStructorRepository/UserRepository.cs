@@ -27,7 +27,7 @@ namespace MiniStructorRepository
         {
 
             using var dbContext = new minicstructorContext();
-            var userRepository = new Repository<User>(dbContext);
+            var userRepository = new Repository<User>();
 
             var user = userRepository.SearchFor(x => x.UserEmail == email && x.UserPassword == password).FirstOrDefault();
             if (user == null)
@@ -43,14 +43,16 @@ namespace MiniStructorRepository
         public UserModel Register(User userRegistration)
         {
             //check for existing user
-            using var dbContext = new minicstructorContext();
-            var userRepository = new Repository<User>(dbContext);
+            var dbContext = new minicstructorContext();
+            var userRepository = new Repository<User>();
 
             var user = userRepository.SearchFor(x => x.UserEmail == userRegistration.UserEmail).FirstOrDefault();
             //add user if none exists
             if (user == null)
             {
+                user = userRegistration;
                 userRepository.Insert(userRegistration);
+                dbContext.SaveChanges();
                 //return user
                 return new UserModel { Id = user.UserId, Name = user.UserEmail };
             }
@@ -62,4 +64,5 @@ namespace MiniStructorRepository
         }
     }
 }
+
 

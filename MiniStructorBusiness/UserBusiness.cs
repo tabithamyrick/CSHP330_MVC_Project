@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UserBusiness
+namespace MiniStructorBusiness
 {
     public interface IUserManager
     {
         UserModel LogIn(string email, string password);
         UserModel Register(User user);
+        User FindUser(int userId);
+        List<Class> GetClassesForUser(int userId);
     }
 
     public class UserModel
@@ -21,73 +23,70 @@ namespace UserBusiness
     }
     public class UserBusiness : IUserManager
     {
-       public static void CreateUser(User user)
+        public UserBusiness()
+        {
+        }
+
+        public static void CreateUser(User user)
         {
 
             //To add --Password Hash
             //check for exsisting
-            using (var dbContext = new minicstructorContext())
-            {
-                var userRepository = new Repository<User>(dbContext);
+            var userRepository = new Repository<User>();
 
-                userRepository.Insert(user);
-            }
+            userRepository.Insert(user);
+
         }
 
         public static void RemoveUser(User user)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var userRepository = new Repository<User>(dbContext);
+            var userRepository = new Repository<User>();
 
-                userRepository.Delete(user);
-            }
+            userRepository.Delete(user);
         }
 
         public static void UpdateUser(User user)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var userRepository = new Repository<User>(dbContext);
 
-                userRepository.Update(user);
-                
-            }
+            var userRepository = new Repository<User>();
+
+            userRepository.Update(user);
+
         }
 
-        public static User FindUser(User user)
+        public User FindUser(int userId)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var userRepository = new Repository<User>(dbContext);
 
-                return userRepository.GetById(user.UserId);
+            var userRepository = new Repository<User>();
 
-            }
+            return userRepository.GetById(userId);
+
+
         }
 
-        public static List<User> GetAllUsers()
+        public List<User> GetAllUsers()
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var userRepository = new Repository<User>(dbContext);
-                var UserList = userRepository.GetAll();
-                return (List<User>)UserList;
+            var userRepository = new Repository<User>();
+            List<User> UserList = userRepository.GetAll().ToList();
+            return UserList;
 
-            }
         }
 
-        public static List<Class> GetClassesForUser(User user)
+        public List<Class> GetClassesForUser(int userId)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var userClassRepository = new Repository<UserClass>(dbContext);
-                var classRepository = new Repository<Class>(dbContext);
-                var classList = classRepository.GetAll();
-                var userClassList = userClassRepository.GetAll();
-                return (List<Class>)userClassList.Join(classList, x => x.ClassId, y => y.ClassId, (ucList, cList) => new { x = ucList, y = cList}).Where(z => z.x.UserId == user.UserId);
 
+            var userClassRepository = new Repository<UserClass>();
+            var classRepository = new Repository<Class>();
+            var userClassList = userClassRepository.GetAll().Where(x => x.UserId == userId);
+            List<Class> classList = new List<Class>();
+            foreach (var uc in userClassList)
+            {
+                var classFound = classRepository.SearchFor(x => x.ClassId == uc.ClassId).FirstOrDefault() ;
+                classList.Add(classFound);
             }
+         
+            return classList;
+
         }
 
         public UserModel LogIn(string email, string password)
@@ -110,20 +109,20 @@ namespace UserBusiness
 
         public UserModel Register(User userRegistration)
         {
-            using (var dbContext = new minicstructorContext())
+
+            var userRepository = new UserRepository();
+            //var nextID = dbContext.Users.Count() + 1;
+            //userRegistration.UserId = nextID;
+            userRegistration.UserIsAdmin = false;
+
+            var user = userRepository.Register(userRegistration);
+
+            if (user == null)
             {
-                var userRepository = new UserRepository();
-
-
-                var user = userRepository.Register(userRegistration);
-
-                if (user == null)
-                {
-                    return null;
-                }
-
-                return new UserModel { Id = user.Id, Name = user.Name };
+                return null;
             }
+
+            return new UserModel { Id = user.Id, Name = user.Name };
         }
     }
 }

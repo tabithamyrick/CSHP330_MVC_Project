@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MiniStructorDB;
 using MiniStructorRepository;
+using MiniStructorBusiness;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +35,15 @@ namespace MiniStructorMVCApp
             services.AddDbContext<minicstructorContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSingleton<UserBusiness.IUserManager, UserBusiness.UserBusiness>();
+            services.AddSingleton<IUserManager, UserBusiness>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSession();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+               {
+                   options.LoginPath = new PathString("/Home/Login");
+                   options.AccessDeniedPath = new PathString("/");
+               });
             //services.AddDefaultIdentity<User>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
@@ -61,7 +70,7 @@ namespace MiniStructorMVCApp
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

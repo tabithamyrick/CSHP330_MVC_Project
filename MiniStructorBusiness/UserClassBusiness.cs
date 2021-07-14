@@ -6,28 +6,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UserBusiness
+namespace MiniStructorBusiness
 {
-    class UserClassBusiness
+    public class UserClassBusiness
     {
-        public static void CreateUserClass(UserClass userClass)
+        public void CreateUserClass(UserClass userClass)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var userClassRepository = new Repository<UserClass>(dbContext);
-
+                var userClassRepository = new Repository<UserClass>();
                 userClassRepository.Insert(userClass);
-            }
         }
 
-        public static void RemoveUserClass(UserClass userClass)
+        public void RemoveUserClass(UserClass userClass)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var userClassRepository = new Repository<UserClass>(dbContext);
+                var userClassRepository = new Repository<UserClass>();
+        }
 
-                userClassRepository.Delete(userClass);
-            }
+        public void Register(int classID, string userName)
+        {
+                var userClassRepository = new Repository<UserClass>();
+                Repository<User> userRepo = new Repository<User>();
+                UserClass userClass = new UserClass();
+                userClass.ClassId = classID;
+                userClass.UserId = userRepo.SearchFor(x => x.UserEmail == userName).FirstOrDefault().UserId;
+                userClassRepository.Insert(userClass);
         }
     }
 }

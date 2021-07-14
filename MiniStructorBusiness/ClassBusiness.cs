@@ -3,63 +3,43 @@ using MiniStructorDB;
 using MiniStructorRepository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace UserBusiness
+namespace MiniStructorBusiness
 {
-    class ClassBusiness 
+    public class ClassBusiness 
     {
-        public static void CreateClass(Class @class)
+        public void CreateClass(Class _class)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var classRepository = new Repository<Class>(dbContext);
-
-                classRepository.Insert(@class);
-            }
+                var classRepository = new Repository<Class>();
+                classRepository.Insert(_class);
         }
 
-        public static void RemoveClass(Class @class)
+        public void RemoveClass(Class _class)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var classRepository = new Repository<Class>(dbContext);
-
-                classRepository.Delete(@class);
-            }
+                var classRepository = new Repository<Class>();
+                classRepository.Delete(_class);
         }
 
-        public static void UpdateClass(Class @class)
+        public void UpdateClass(Class _class)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var classRepository = new Repository<Class>(dbContext);
 
-                classRepository.Update(@class);
-                
-            }
+                var classRepository = new Repository<Class>();
+                classRepository.Update(_class);
         }
 
-        public static Class FindClass(Class @class)
+        public Class FindClass(Class _class)
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var classRepository = new Repository<Class>(dbContext);
-
-                return classRepository.GetById(@class.ClassId);
-
-            }
+                var classRepository = new Repository<Class>();
+                return classRepository.GetById(_class.ClassId);
         }
 
-        public static List<Class> GetAllClasses()
+        public List<Class> GetAllClasses()
         {
-            using (var dbContext = new minicstructorContext())
-            {
-                var classRepository = new Repository<User>(dbContext);
-                var UserList = classRepository.GetAll();
-                return (List<Class>)UserList;
-
-            }
+                var classRepository = new Repository<Class>();
+                var classes = classRepository.GetAll().ToList<Class>();
+                return classes;
         }
 
     }

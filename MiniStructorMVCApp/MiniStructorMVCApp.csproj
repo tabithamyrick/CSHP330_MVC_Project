@@ -14,6 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,4 +22,10 @@
     <ProjectReference Include="..\MiniStructorDB\MiniStructorDB.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MiniStructorBusiness">
+      <HintPath>..\MiniStructorBusiness\bin\Debug\netcoreapp3.1\MiniStructorBusiness.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
 </Project>

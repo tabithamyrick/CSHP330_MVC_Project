@@ -2,28 +2,23 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MiniStructorBusiness;
 using MiniStructorDB;
 using MiniStructorMVCApp.Models;
+using MiniStructorBusiness;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-
 namespace MiniStructorMVCApp.Controllers
 {
-    public class HomeController  : Controller
+    public class AccountController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public IActionResult Dashboard()
         {
-            _logger = logger;
+            return View();
         }
 
         //Authentication Routes
@@ -40,7 +35,7 @@ namespace MiniStructorMVCApp.Controllers
             if (ModelState.IsValid)
             {
                 var userBusiness = new UserBusiness();
-                var user = userBusiness.LogIn(model.UserEmail, model.Password); 
+                var user = userBusiness.LogIn(model.UserEmail, model.Password);
 
                 if (user == null)
                 {
@@ -92,11 +87,11 @@ namespace MiniStructorMVCApp.Controllers
                         claimsPrincipal,
                         authProperties).Wait();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -107,7 +102,7 @@ namespace MiniStructorMVCApp.Controllers
             HttpContext.SignOutAsync(
             CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return Redirect("Index");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public IActionResult Register()
@@ -138,16 +133,28 @@ namespace MiniStructorMVCApp.Controllers
             return View();
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult UserClasses()
         {
-            return View();
-        }
-
-      
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (User.Identity.IsAuthenticated)
+            {
+                var userBusiness = new UserBusiness();
+                var userList = userBusiness.GetAllUsers().Where(x => x.UserEmail == User.Identity.Name);
+                var classList = userBusiness.GetClassesForUser(userList.FirstOrDefault().UserId);
+                if (classList == null)
+                {
+                    List<Class> model = new List<Class>();
+                   return View(model);
+                }
+                else
+                {
+                    return View(classList);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
     }
 }
