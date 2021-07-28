@@ -4,6 +4,7 @@ using MiniStructorRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace MiniStructorBusiness
@@ -23,6 +24,7 @@ namespace MiniStructorBusiness
     }
     public class UserBusiness : IUserManager
     {
+        private UserRepository userRepository;
         public UserBusiness()
         {
         }
@@ -33,7 +35,6 @@ namespace MiniStructorBusiness
             //To add --Password Hash
             //check for exsisting
             var userRepository = new Repository<User>();
-
             userRepository.Insert(user);
 
         }
@@ -95,7 +96,6 @@ namespace MiniStructorBusiness
             {
                 var userRepository = new UserRepository();
 
-
                 var user = userRepository.LogIn(email, password);
 
                 if (user == null)
@@ -111,10 +111,7 @@ namespace MiniStructorBusiness
         {
 
             var userRepository = new UserRepository();
-            //var nextID = dbContext.Users.Count() + 1;
-            //userRegistration.UserId = nextID;
             userRegistration.UserIsAdmin = false;
-
             var user = userRepository.Register(userRegistration);
 
             if (user == null)
@@ -124,5 +121,6 @@ namespace MiniStructorBusiness
 
             return new UserModel { Id = user.Id, Name = user.Name };
         }
+               
     }
 }

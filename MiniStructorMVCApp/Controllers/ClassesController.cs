@@ -39,7 +39,7 @@ namespace MiniStructorMVCApp.Controllers
             else
             {
                 var test = Url.ActionContext;
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Classes/ClassList"});
             }
         }
     }

@@ -1,17 +1,16 @@
 ﻿@model MiniStructorMVCApp.Models.UserLogin
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Ministructor";
 }
 
-<h1>View</h1>
-
-<h4>UserLogin</h4>
+<h1>Login to Your Account</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(m => m.returnUrl)
             <div class="form-group">
                 <label asp-for="UserEmail" class="control-label"></label>
                 <input asp-for="UserEmail" class="form-control" />

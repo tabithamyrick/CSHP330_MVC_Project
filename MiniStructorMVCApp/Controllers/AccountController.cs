@@ -16,16 +16,15 @@ namespace MiniStructorMVCApp.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
-
         //Authentication Routes
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string? returnUrl)
         {
             UserLogin model = new UserLogin();
+            if (returnUrl != null)
+            {
+                model.returnUrl = returnUrl;
+            }
             return View();
         }
 
@@ -65,21 +64,9 @@ namespace MiniStructorMVCApp.Controllers
                     var authProperties = new AuthenticationProperties
                     {
                         AllowRefresh = false,
-                        // Refreshing the authentication session should be allowed.
-
                         ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                        // The time at which the authentication ticket expires. A 
-                        // value set here overrides the ExpireTimeSpan option of 
-                        // CookieAuthenticationOptions set with AddCookie.
-
                         IsPersistent = false,
-                        // Whether the authentication session is persisted across 
-                        // multiple requests. When used with cookies, controls
-                        // whether the cookie's lifetime is absolute (matching the
-                        // lifetime of the authentication ticket) or session-based.
-
                         IssuedUtc = DateTimeOffset.UtcNow,
-                        // The time at which the authentication ticket was issued.
                     };
 
                     HttpContext.SignInAsync(
@@ -87,7 +74,15 @@ namespace MiniStructorMVCApp.Controllers
                         claimsPrincipal,
                         authProperties).Wait();
 
-                    return RedirectToAction("Index", "Home");
+                    if(model.returnUrl != null)
+                    {
+                        return Redirect(model.returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
                 }
             }
 
@@ -107,7 +102,7 @@ namespace MiniStructorMVCApp.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            User model = new User();
+           UserRegestration model = new UserRegestration();
             return View(model);
         }
 
@@ -153,7 +148,7 @@ namespace MiniStructorMVCApp.Controllers
             }
             else
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", new { returnUrl = HttpContext.Request.Path });
             }
         }
     }

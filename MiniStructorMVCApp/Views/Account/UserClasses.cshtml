@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<MiniStructorDB.Class>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "User Class History";
+    var length = User.Identity.Name.IndexOf("@");
 }
 
-<h1>View</h1>
+<h1>@User.Identity.Name.Substring(0, length) Class History</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>

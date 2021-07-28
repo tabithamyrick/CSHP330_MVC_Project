@@ -13,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MiniStructorMVCApp</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mini-Structor</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,10 +21,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Classes">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="Classes" asp-action="ClassList">Class List</a>
                         </li>
                     </ul>
                     @if (Context.Session.GetString("User") != null)
@@ -32,10 +32,10 @@
                         var length = User.Identity.Name.IndexOf("@");
                         <ul class="navbar-nav flex-grow-2 float-right">
                             <li class="nav-item">
-                                <a class="nav-link text-dark">Hi, @User.Identity.Name.Substring(0, length)</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="UserClasses">Hi, @User.Identity.Name.Substring(0, length)</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOff">Log off</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="LogOff">Log off</a>
                             </li>
                         </ul>
                     }
@@ -43,10 +43,10 @@
                     {
                         <ul class="navbar-nav flex-grow-2 float-right">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         </ul>
                     }
@@ -62,7 +62,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - MiniStructorMVCApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Today.Year - MiniStructorMVCApp
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

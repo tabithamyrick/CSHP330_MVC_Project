@@ -20,8 +20,8 @@ namespace MiniStructorRepository
 
         public void Insert(T entity)
         {
-            DbSet.Add(entity);
-            dataContext.SaveChanges();
+                DbSet.Add(entity);
+                dataContext.SaveChanges();
         }
 
         public void Update(T entity)

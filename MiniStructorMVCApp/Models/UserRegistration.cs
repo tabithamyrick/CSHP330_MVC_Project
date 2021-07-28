@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniStructorMVCApp.Models
 {
-    public class UserLogin
+    public class UserRegestration
     {
         public int Id { get; set; }
 
@@ -19,8 +19,13 @@ namespace MiniStructorMVCApp.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        public string Password { get; set; }
+        public string UserPassword { get; set; }
 
+        [Required]
+        [DataType(DataType.Password)]
+        [Compare("UserPassword")]
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
 
         public string? returnUrl { get; set; }
     }
