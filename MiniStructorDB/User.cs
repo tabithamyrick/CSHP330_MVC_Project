@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -14,6 +15,7 @@ namespace MiniStructorDB
 
         public int UserId { get; set; }
         public string UserEmail { get; set; }
+        [DataType("Password")]
         public string UserPassword { get; set; }
         public bool UserIsAdmin { get; set; }
 
