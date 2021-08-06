@@ -2,18 +2,20 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center container">
-    <h1 class="display-4 jumbotron">Welcome to Mini-Stuctor</h1>
+<div class="text-center container jumbotron">
+    <h1 class="display-4">Welcome to Mini-Stuctor</h1>
+    <h4>Your Source for Awesome IT Training</h4>
+</div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <a asp-controller="Classes" asp-action="ClassList" class="card">Our Classes</a>
-        </div>
-        <div class="col-md-4">
-            <a asp-controller="Account" asp-action="Login" class="card">Register/Login</a>
-        </div>
-        <div class="col-md-4">
-            <a asp-controller="Account" asp-action="UserClasses" class="card">View Class History</a>
-        </div>
+<div class="row text-center">
+    <div class="col-md-4">
+        <a asp-controller="Classes" asp-action="ClassList" class="card">Our Classes</a>
+    </div>
+    <div class="col-md-4">
+        <a asp-controller="Account" asp-action="Login" class="card">Register/Login</a>
+    </div>
+    <div class="col-md-4">
+        <a asp-controller="Account" asp-action="UserClasses" class="card">View Class History</a>
     </div>
 </div>
+

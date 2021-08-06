@@ -24,7 +24,7 @@
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Classes" asp-action="ClassList">Class List</a>
+                            <a class="nav-link text-dark" asp-controller="Classes" asp-action="ClassList">Our Classes</a>
                         </li>
                     </ul>
                     @if (Context.Session.GetString("User") != null)
@@ -62,7 +62,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Today.Year - MiniStructorMVCApp
+            &copy; @DateTime.Today.Year - Mini-Structor
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
