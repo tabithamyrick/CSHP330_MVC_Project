@@ -25,8 +25,6 @@ namespace MiniStructorRepository
 
         public UserModel LogIn(string email, string password)
         {
-
-            using var dbContext = new minicstructorContext();
             var userRepository = new Repository<User>();
 
             var user = userRepository.SearchFor(x => x.UserEmail == email && x.UserPassword == password).FirstOrDefault();
