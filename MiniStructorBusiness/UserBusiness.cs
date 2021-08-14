@@ -1,28 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MiniStructorBusiness.Services;
+﻿using MiniStructorBusiness.Services;
 using MiniStructorDB;
 using MiniStructorRepository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MiniStructorBusiness
 {
-    public interface IUserManager
-    {
-        UserModel LogIn(string email, string password);
-        UserModel Register(User user);
-        User FindUser(int userId);
-        List<Class> GetClassesForUser(int userId);
-    }
-
-    public class UserModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
     public class UserBusiness : IUserManager
     {
         private Repository<User> userRepository;
