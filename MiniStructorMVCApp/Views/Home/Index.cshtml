@@ -8,14 +8,26 @@
 </div>
 
 <div class="row text-center">
-    <div class="col-md-4">
-        <a asp-controller="Classes" asp-action="ClassList" class="card">Our Classes</a>
+    <div class="col-md-4 indexNavBlock">
+        <a asp-controller="Classes" asp-action="ClassList" class="card">
+            <h3>Our Classes</h3>
+            <p>See Our Great Training Class</p>
+        </a>
     </div>
     <div class="col-md-4">
-        <a asp-controller="Account" asp-action="Login" class="card">Register/Login</a>
+        <a asp-controller="Account" asp-action="Login" class="card">
+            <div>
+                <h4>Register/Login</h4>
+                <p>Login or Signup to Start Training</p>
+            </div>
+
+        </a>
     </div>
     <div class="col-md-4">
-        <a asp-controller="Account" asp-action="UserClasses" class="card">View Class History</a>
+        <a asp-controller="Account" asp-action="UserClasses" class="card">
+            <h3>View Class History</h3>
+            <p>See Your Current and Complete Training</p>
+        </a>
     </div>
 </div>
 

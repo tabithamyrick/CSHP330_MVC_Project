@@ -27,14 +27,16 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index" asp-controller="Home">Home</a>
-</div>
 <br />
-<div>
-    <a asp-action="Register">Register</a>
+<div class="row">
+    <div class="col-sm-1">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-sm btn-secondary">Home</a>
+    </div>
+    <div class="col-sm-1">
+        <a asp-action="Register" class="btn btn-sm btn-secondary">Register</a>
+    </div>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

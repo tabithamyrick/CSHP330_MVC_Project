@@ -21,6 +21,7 @@ namespace MiniStructorMVCApp.Models
         [DataType(DataType.Password)]
         [Compare("UserPassword")]
         [NotMapped]
+        [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
         public string? returnUrl { get; set; }
